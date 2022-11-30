@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+
+<body>
+    <h1>회원가입</h1>
+    <form method="post">
+        {% csrf_token %}
+    <div>
+        <label for="user_number">학번</label>
+        <input type="text" name="user_number" id="user_number"></input>
+    </div>
+    <div>
+        <label for="user_name">이름</label>
+        <input type="text" name="user_name" id="user_name"></input>
+    </div>
+    <div>
+        <label for="user_password">비밀번호</label>
+        <input type="text" name="user_password" id="user_name"></input>
+    </div>
+    <div>
+        <label for="major">전공</label>
+        <select name="majoritem" id="majoritem">
+            <option value="1">컴퓨터공학과</option>
+            <option value="2">산업경영공학과</option>
+            <option value="3">심리학과</option>
+            <option value="4">국제무역학과</option>
+            <option value="5">경영정보학과</option>
+        </select>
+        {% comment %} <script>
+            var major = document.getElementById("majoritem");
+            var majorvalue = major.options[major.selectedIndex].value;
+        </script> {% endcomment %}
+    </div>
+    <div>
+        <button type="submit">SUBMIT</button>
+    </div>
+    </form>
+</body>
+
+</html>
+
+{% endblock %}

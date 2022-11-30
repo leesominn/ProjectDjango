@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조회</title>
+    <style>
+        table {
+            width: 80%;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            border-top: 1px solid #444444;
+            border-collapse: collapse;
+        }
+
+        th,td {
+            border-bottom: 1px solid #444444;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body margin=0 auto width=300px>
+    <div class="container" id="test">
+        <table>
+            <tr>
+                <th>강의명</th>
+                <th>교수명</th>
+                <th>학점</th>
+                <th>시간</th>
+                <th>강의장소</th>
+                <th>인원</th>
+                <th>신청</th>
+            </tr>
+            {% for item in get_course %}
+            <tr>
+                <td>{{item.course_name}}</td>
+                <td>{{item.course_professor}}</td>
+                <td>{{item.course_credit}}</td>
+                <td>{{item.course_time}}</td>
+                <td>{{item.course_lectureroom}}</td>
+                <td>{{item.course_cnt}}</td>
+                <td><button id='{{item.id}}'>신청</button></td>
+            </tr>
+
+            {% endfor %}
+        </table>
+
+        <script>
+
+            const btns = document.querySelectorAll('button');
+            btns.forEach((v) => {
+                v.addEventListener('click', (e) => {
+                    const course_id = e.currentTarget.getAttribute('id');
+                    const ajax = fetch(`/course/insertCourse/?course_id=${course_id}`);
+                    ajax.then((response) => {
+                        alert("신청이 완료되었습니다.")
+                        return response.json();
+                    }).then((response) => {
+                        console.log(response.msg);
+                    });
+                });
+            })
+        </script>
+    </div>
+
+</body>
+
+</html>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+</head>
+
+<body>
+    <h1>로그인</h1>
+    <form method="post">
+        {% csrf_token %}
+    <div>
+        <label for="user_number">학번</label>
+        <input type="text" name="user_number" id="user_number"></input>
+    </div>
+    <div>
+        <label for="user_name">PW</label>
+        <input type="text" name="user_password" id="user_password"></input>
+
+        <button type="submit">login</button>
+    </div>
+    </form>
+    {% if request.session.user_number %}
+    <p>
+        <a href="{% url 'user:signOut' %}">
+            {{ request.session.user_number }} 님 반갑습니다.(로그아웃)
+        </a>
+    </p>
+    {% else %}
+    <p>현재 상태 : Guest</p>
+    {% endif %}
+
+</body>
+
+</html>
+
+{% endblock %}
+
